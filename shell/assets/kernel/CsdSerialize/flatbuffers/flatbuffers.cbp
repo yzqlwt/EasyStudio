@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="flatbuffers"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;CMake Files\CsdSerialize\;CMake Files\CsdSerialize\flatbuffers\;CMake Files\CsdSerialize\reader\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\vcpkg\;CMake Files\..\..\..\vcpkg\installed\;CMake Files\..\..\..\vcpkg\installed\x86-windows\;CMake Files\..\..\..\vcpkg\installed\x86-windows\share\;CMake Files\..\..\..\vcpkg\installed\x86-windows\share\tinyxml2\;CMake Files\..\..\..\vcpkg\installed\x86-windows\share\curl\;CMake Files\..\..\..\vcpkg\installed\x86-windows\share\opencv\;CMake Files\..\..\..\vcpkg\installed\x86-windows\share\nlohmann_json\;CMake Files\..\..\..\vcpkg\installed\x86-windows\share\minizip\;CMake Files\..\..\..\vcpkg\scripts\;CMake Files\..\..\..\vcpkg\scripts\buildsystems\;CMake Files\cmake\;CMake Files\utils\;CMake Files\websocket\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/CsdSerialize/flatbuffers"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ext_flatbuffers">
+				<Option output="C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/lib/ext_flatbuffers.lib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/CsdSerialize/flatbuffers"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/CsdSerialize"/>
+					<Add directory="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize"/>
+					<Add directory="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/.."/>
+					<Add directory="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/."/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 ext_flatbuffers"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="ext_flatbuffers/fast">
+				<Option output="C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/lib/ext_flatbuffers.lib" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/CsdSerialize/flatbuffers"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/CsdSerialize"/>
+					<Add directory="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize"/>
+					<Add directory="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/.."/>
+					<Add directory="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/."/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.26.28801\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 ext_flatbuffers/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\yzqlwt\Documents\EasyStudio\shell\assets\kernel\CsdSerialize\flatbuffers\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/flatc.cpp">
+			<Option target="ext_flatbuffers"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/idl_gen_cpp.cpp">
+			<Option target="ext_flatbuffers"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/idl_gen_fbs.cpp">
+			<Option target="ext_flatbuffers"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/idl_gen_general.cpp">
+			<Option target="ext_flatbuffers"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/idl_gen_go.cpp">
+			<Option target="ext_flatbuffers"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/idl_gen_text.cpp">
+			<Option target="ext_flatbuffers"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/idl_parser.cpp">
+			<Option target="ext_flatbuffers"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\CsdSerialize\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/flatbuffers/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\CsdSerialize\flatbuffers\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/CsdSerialize/reader/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\CsdSerialize\reader\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/tinyxml2/tinyxml2Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\tinyxml2\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/tinyxml2/tinyxml2ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\tinyxml2\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/tinyxml2/tinyxml2Targets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\tinyxml2\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/tinyxml2/tinyxml2Targets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\tinyxml2\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/tinyxml2/tinyxml2Targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\tinyxml2\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/curl/CURLConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\curl\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/curl/CURLConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\curl\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/curl/CURLTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\curl\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/curl/CURLTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\curl\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/curl/CURLTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\curl\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/curl/vcpkg-cmake-wrapper.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\curl\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/opencv/OpenCVConfig-version.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\opencv\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/opencv/OpenCVConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\opencv\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/opencv/OpenCVModules-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\opencv\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/opencv/OpenCVModules-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\opencv\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/opencv/OpenCVModules.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\opencv\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/nlohmann_json/nlohmann_jsonConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\nlohmann_json\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/nlohmann_json/nlohmann_jsonConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\nlohmann_json\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/nlohmann_json/nlohmann_jsonTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\nlohmann_json\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/minizip/minizipConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\minizip\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/minizip/minizipConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\minizip\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/minizip/minizipTargets-debug.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\minizip\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/minizip/minizipTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\minizip\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/installed/x86-windows/share/minizip/minizipTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\installed\x86-windows\share\minizip\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/../../../vcpkg/scripts/buildsystems/vcpkg.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\vcpkg\scripts\buildsystems\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/cmake/ExternalConfig.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\utils\"/>
+		</Unit>
+		<Unit filename="C:/Users/yzqlwt/Documents/EasyStudio/kernel/websocket/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\websocket\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

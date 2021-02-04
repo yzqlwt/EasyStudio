@@ -4,6 +4,7 @@ import { Button, Result } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 import { connect as wsconnect } from '../../middleware/websocket';
 import auth from '../../common/auth';
+import { getServerPath } from '../../common/global';
 
 import { withRouter } from 'react-router-dom';
 
@@ -39,17 +40,9 @@ class Index extends React.Component {
     };
 
     startServer = () => {
-        if (process.env.NODE_ENV === 'production' || true ) {
-            const { remote } = window.require('electron');
-            let RESOURCES_PATH = remote.getGlobal('shareObject').RESOURCES_PATH;
+        if (process.env.NODE_ENV === 'production' || true) {
             const exec = window.require('child_process').execFile;
-            let path = '/kernel/EasyStudio';
-            path =
-                window.process.platform === 'win32'
-                    ? '/kernel/EasyStudio.exe'
-                    : path;
-            console.log(RESOURCES_PATH + '/assets' + path);
-            exec(RESOURCES_PATH + '/assets' + path, (err, data) => {
+            exec(getServerPath(), (err, data) => {
                 console.log(err);
                 console.log(data.toString());
                 this.connectServer();

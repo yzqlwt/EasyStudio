@@ -1,0 +1,24 @@
+"C:\Program Files\JetBrains\CLion 2020.2.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=C:/Users/yzqlwt/vcpkg/scripts/buildsystems/vcpkg.cmake -G "CodeBlocks - NMake Makefiles" C:\Users\yzqlwt\Documents\EasyStudio\kernel
+-- The C compiler identification is MSVC 19.26.28806.0
+-- The CXX compiler identification is MSVC 19.26.28806.0
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.26.28801/bin/Hostx86/x86/cl.exe
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.26.28801/bin/Hostx86/x86/cl.exe - works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.26.28801/bin/Hostx86/x86/cl.exe
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.26.28801/bin/Hostx86/x86/cl.exe - works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ZLIB: optimized;C:/Users/yzqlwt/vcpkg/installed/x86-windows/lib/zlib.lib;debug;C:/Users/yzqlwt/vcpkg/installed/x86-windows/debug/lib/zlibd.lib (found suitable version "1.2.11", minimum required is "1") 
+-- Found OpenCV: C:/Users/yzqlwt/vcpkg/installed/x86-windows (found version "4.1.1") 
+-- Found OpenSSL: C:/Users/yzqlwt/vcpkg/installed/x86-windows/lib/libcrypto.lib (found version "1.1.1h")  
+-- Found Boost: C:/Users/yzqlwt/vcpkg/installed/x86-windows/include (found version "1.74.0")  
+-- Found nlohmann_json: C:/Users/yzqlwt/vcpkg/installed/x86-windows/share/nlohmann_json/nlohmann_jsonConfig.cmake (found version "3.9.1") 
+-- Tips: Copy the third-party library to the output folder
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel

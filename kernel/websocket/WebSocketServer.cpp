@@ -71,3 +71,7 @@ void WebSocketServer::init(unsigned short port){
                 std::move(socket)).detach();
     }
 }
+
+void WebSocketServer::stop() {
+
+}

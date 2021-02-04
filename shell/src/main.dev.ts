@@ -63,7 +63,7 @@ const createWindow = async () => {
         ? path.join(process.resourcesPath, '')
         : path.join(__dirname, '../');
     global.shareObject = {
-        RESOURCES_PATH: RESOURCES_PATH,
+        resourcePath: RESOURCES_PATH,
     };
 
     const getAssetPath = (...paths: string[]): string => {
@@ -72,9 +72,9 @@ const createWindow = async () => {
 
     mainWindow = new BrowserWindow({
         show: false,
-        width: 1024,
-        height: 728,
-        resizable: true,
+        width: 1280,
+        height: 720,
+        resizable: false,
         icon: getAssetPath('icon.png'),
         webPreferences: {
             nodeIntegration: true,

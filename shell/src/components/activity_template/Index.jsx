@@ -141,10 +141,7 @@ class Index extends React.Component {
         const { dataSkin } = this.props;
         const templateType = 'ActivityTemplate';
         const templateId = this.state.templateId;
-        const targetSkin = get(
-            dataSkin,
-            templateType+'_'+templateId,
-        );
+        const targetSkin = get(dataSkin, templateType + '_' + templateId);
         if (targetSkin) {
             return get(targetSkin, 'response', []);
         }
@@ -161,10 +158,7 @@ class Index extends React.Component {
         const { dataProperty } = this.props;
         const itemType = 'Skin';
         const itemId = this.state.skinId;
-        const targetProperty = get(
-            dataProperty,
-            itemType+'_'+itemId,
-        );
+        const targetProperty = get(dataProperty, itemType + '_' + itemId);
         if (targetProperty) {
             const property = find(
                 get(targetProperty, 'response', []),
@@ -377,7 +371,6 @@ class Index extends React.Component {
                             {this.renderHeader()}
                         </Layout.Header>
                         <Layout.Content theme="light" style={{ padding: 30 }}>
-                            {/*<Files templateId={this.state.templateId} skinId={this.state.skinId}></Files>*/}
                             <FileView
                                 templateId={this.state.templateId}
                                 skinId={this.state.skinId}
@@ -400,12 +393,7 @@ Index.propTypes = {
 };
 
 function stateToProps(state) {
-    const {
-        dataSkin,
-        dataProperty,
-        dataActivity,
-        dataWebsocket,
-    } = state;
+    const { dataSkin, dataProperty, dataActivity, dataWebsocket } = state;
     return { dataSkin, dataProperty, dataActivity, dataWebsocket };
 }
 

@@ -25,9 +25,12 @@ class WebSocketServer {
 public:
     void init(unsigned short port);
     void do_session(tcp::socket socket);
+    void stop();
 
 private:
     Handlers handlers;
+    net::io_context* m_ioc;
+    tcp::acceptor* m_acceptor;
 };
 
 

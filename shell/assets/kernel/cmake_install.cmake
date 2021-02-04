@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/yzqlwt/CLionProjects/EasyStudio
+# Install script for directory: C:/Users/yzqlwt/Documents/EasyStudio/kernel
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,17 +34,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/yzqlwt/CLionProjects/EasyStudio/kernel/utils/cmake_install.cmake")
+  include("C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/utils/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/yzqlwt/CLionProjects/EasyStudio/kernel/CsdSerialize/cmake_install.cmake")
+  include("C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/CsdSerialize/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/yzqlwt/CLionProjects/EasyStudio/kernel/websocket/cmake_install.cmake")
+  include("C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/websocket/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/yzqlwt/CLionProjects/EasyStudio/kernel/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/yzqlwt/Documents/EasyStudio/shell/assets/kernel/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
