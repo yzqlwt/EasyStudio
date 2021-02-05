@@ -40,7 +40,7 @@ public:
     this->m_callbacks["download"] = std::bind(&Handlers::handle_download, this, std::placeholders::_1,std::placeholders::_2);
     this->m_callbacks["files"] = std::bind(&Handlers::handle_get_files, this, std::placeholders::_1,std::placeholders::_2);
         this->m_callbacks["csd"] = std::bind(&Handlers::handle_csd, this, std::placeholders::_1,std::placeholders::_2);
-//    this->m_callbacks["exit"] = std::bind(&Handlers::handle_exit, this, std::placeholders::_1,std::placeholders::_2);
+    this->m_callbacks["ccs"] = std::bind(&Handlers::handleResetCCS, this, std::placeholders::_1, std::placeholders::_2);
     }
     Handlers(){
         init();
@@ -73,7 +73,7 @@ public:
 
     void handle_get_files(WS&, const std::string& ) ;
 
-    void handle_exit(WS&, const std::string& );
+    void handleResetCCS(WS&, const std::string& );
 
     void handle_tiny_png(WS&, const std::string& );
 

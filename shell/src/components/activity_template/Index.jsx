@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     message,
+    Modal,
     Menu,
     Spin,
     Pagination,
@@ -9,6 +10,7 @@ import {
     Button,
     Descriptions,
     Layout,
+    Input,
     Drawer,
     Col,
     Card,
@@ -26,6 +28,7 @@ import FileView from './FileView';
 import { fetchActivity } from '../../actions/activity';
 import { fetchSkin } from '../../actions/skin';
 import { fetchProperty } from '../../actions/property';
+import { getCCSPath, setCCSPath } from '../../common/global';
 import {
     isFetchInitialize,
     isFetchLoading,
@@ -42,6 +45,7 @@ class Index extends React.Component {
     state = {
         templateId: null,
         skinId: null,
+        isShowCCSSetting: false,
         params: {
             count: 12,
         },
@@ -128,6 +132,13 @@ class Index extends React.Component {
         if (!dataWebsocket.connected) {
             history.replace('/connect');
         }
+        const ipcRenderer = global.require('electron').ipcRenderer;
+        ipcRenderer.on('setting',(type)=>{
+            console.log("setting")
+            this.setState({
+                isShowCCSSetting: true
+            })
+        });
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -182,6 +193,34 @@ class Index extends React.Component {
             })
         );
     };
+
+    handleCCSSetting(){
+
+    }
+
+    showServerTips(){
+        const { dataWebsocket, dispatch } = this.props;
+        const tips = get(dataWebsocket, 'tips', {});
+        const content = get(tips, 'content', '');
+        if (content == '') {
+            return;
+        }
+        const type = get(tips, 'type', 'info');
+        if (type == "info"){
+            message.info(content);
+        }else if(type == "error"){
+            message.error(content);
+        }
+        dispatch({
+            type: 'REDUX_WEBSOCKET::MESSAGE',
+            payload:{
+                message:{
+                    id: "tips",
+                    content: "",
+                }
+            }
+        });
+    }
 
     menu = (
         <Menu>
@@ -323,9 +362,43 @@ class Index extends React.Component {
         );
     }
 
+    renderCCSSetting(){
+        const { dispatch } = this.props;
+        let value = getCCSPath();
+        let path = value;
+        return(
+            <Modal
+                title="粘贴CCS文件路径"
+                visible={this.state.isShowCCSSetting}
+                onOk={()=>{
+                    console.log(value)
+                    this.setState({isShowCCSSetting:false})
+                    if (value.indexOf(".ccs")!=-1){
+                        setCCSPath(value);
+                        dispatch(send({
+                            id: "ccs",
+                        }))
+                    }else{
+                        message.error("路径错误,未包含.ccs")
+                    }
+                }}
+                onCancel={()=>{
+                    this.setState({isShowCCSSetting:false})
+                }}
+                cancelText="关闭"
+                >
+                <Input placeholder=".ccs文件路径, 不包括引号" defaultValue={value} onChange={(e)=>{
+                    value = e.target.value;
+                }}/>
+            </Modal>
+        );
+    }
+
     render() {
         const { dataActivity } = this.props;
         const { response } = dataActivity;
+        const { dataWebSocket } = this.props;
+        this.showServerTips();
         return (
             <Layout style={{ height: '100%' }}>
                 <Layout.Sider
@@ -341,6 +414,7 @@ class Index extends React.Component {
                         autoHideTimeout={600}
                         autoHideDuration={400}
                     >
+                        {this.renderCCSSetting()}
                         <Toolbar onSearch={this.handleSearch} />
                         <Spin
                             spinning={isFetchLoading(dataActivity)}

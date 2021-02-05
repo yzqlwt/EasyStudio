@@ -85,7 +85,7 @@ namespace ZipHelper{
                 binary = stringStream.str();
                 ifs.close();
             }
-            std::cout << dirPath << std::endl;
+            std::cout << "解压路径："<< dirPath << std::endl;
             bundle::archive package;
             package.zip(binary);
 

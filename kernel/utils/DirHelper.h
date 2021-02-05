@@ -5,6 +5,7 @@
 #ifndef EASYSTUDIO_DIRHELPER_H
 #define EASYSTUDIO_DIRHELPER_H
 
+#include "Tools.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,8 +24,6 @@
 #endif
 
 namespace fs = std::filesystem;
-
-static  std::string CCS = "C:\\Users\\yzqlwt\\Documents\\WorkSpace\\cocos-ui\\mangomath-ui\\CocosProject.ccs";
 
 
 class DirHelper {
@@ -152,7 +151,7 @@ public:
     }
 
     static std::string GetCsdDir(std::string unzip_path) {
-        auto path = fs::path(CCS).parent_path();
+        auto path = fs::path(Tools::GetCCSPath()).parent_path();
         path = path / "cocosstudio" / unzip_path;
         if (!fs::is_directory(path)) {
             std::cout << path << std::endl;

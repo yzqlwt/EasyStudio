@@ -8,6 +8,7 @@
 #include "../utils/ZipHelper.h"
 #include "../utils/PlistParser.h"
 #include "../utils/RequestHelper.h"
+#include "../utils/ResConfigParser.h"
 #include "../CsdSerialize/FlatBuffersSerialize.h"
 #include <regex>
 #include <stdio.h>
@@ -17,6 +18,14 @@ typedef std::pair<std::string, Property> Item;
 typedef std::map<std::string, Property> Resource;
 
 void Handlers::handle_upload(WS& ws, const std::string& message) {
+        if (Tools::GetCCSPath() == ""){
+            nlohmann::json res;
+            res["id"] = "tips";
+            res["content"] = "未配置CCS路径";
+            res["type"] = "error";
+            ws.write(net::buffer(res.dump()));
+            return;
+        }
         auto steps = std::vector<std::string>{
             "资源分析",
             "生成图集",
@@ -38,6 +47,12 @@ void Handlers::handle_upload(WS& ws, const std::string& message) {
         auto csd_dir = DirHelper::GetCsdDir(unzip_path);
         std::cout << "csd_dir:" <<csd_dir << std::endl;
         auto csd_files = DirHelper::GetFilesRecursive(csd_dir, ".csd");
+        std::string::size_type idx = csd_dir.find("res/ui/image/");
+        if ( idx != std::string::npos )
+        {
+            auto extend_csd = DirHelper::GetFilesRecursive(Tools::ReplaceStr(csd_dir, "res/ui/image/", "res/ui/games/"), ".csd");
+            csd_files.insert(csd_files.end(), extend_csd.begin(), extend_csd.end());
+        }
         auto png_files = DirHelper::GetFilesRecursive(resourcePath, ".png");
         auto ccs_png_files = DirHelper::GetFilesRecursive(csd_dir, ".png");
         //所有ccs图片添加到config
@@ -75,6 +90,7 @@ void Handlers::handle_upload(WS& ws, const std::string& message) {
             plist_files_name.push_back(std::filesystem::path(file).stem().string());
         }
         config["plist"] = plist_files_name;
+        config["version"] = "3.0";
         for (auto file : csd_files){
             auto content = Tools::ReadFile(file);
             auto list = Tools::GetRegexStr(content, "Type=\"Normal\" Path=\"res.*png\" Plist=\"\"");
@@ -177,8 +193,8 @@ void Handlers::handle_get_files(WS &ws, const std::string &message) {
     ws.write(boost::asio::buffer(res.dump()));
 }
 
-void Handlers::handle_exit(WS &, const std::string &) {
-
+void Handlers::handleResetCCS(WS &, const std::string &) {
+    Tools::init();
 }
 
 void Handlers::handle_tiny_png(WS &, const std::string &) {
@@ -186,62 +202,8 @@ void Handlers::handle_tiny_png(WS &, const std::string &) {
 }
 
 void Handlers::handle_download(WS &ws, const std::string &message) {
-    auto data = nlohmann::json::parse(message);
-    auto steps = std::vector<std::string>{
-            "下载",
-            "解压",
-            "拆分plist",
-            "完成",
-    };
-    this->send_steps(ws, steps, "下载");
-    int template_id = data["template_id"].get<int>();
-    int skin_id = data["skin_id"].get<int>();
-    auto itemId = skin_id == 0 ? template_id : skin_id;
-    auto itemType = skin_id == 0 ? "ActivityTemplate" : "Skin";
-    auto attachments = RequestHelper::GetAttachments(std::to_string(itemId), itemType);
-    auto uri = RequestHelper::GetResZipUri(attachments);
-    if (uri.compare("") == 0){
-        std::cout << "不存在ResConfig" << std::endl;
-        this->send_steps(ws, steps, "完成");
-        return;
-    }
-    this->send_steps(ws, steps, "解压");
-    auto path = DirHelper::GetDirByTemplateAndSkin(template_id, skin_id);
-    auto resPath = DirHelper::GetResourceDir(path);
-    auto zipPath = DirHelper::GetZipDir(path);
-    auto output_path = DirHelper::GetOutputDir(path);
-    auto download_dir = DirHelper::GetDownloadDir(path);
-    auto temp_path = DirHelper::GetTempDir(path);
-    DirHelper::cleanDir(download_dir);
-    auto filePath = RequestHelper::DownloadZip(uri, zipPath);
-    ZipHelper::UnZip(filePath, download_dir);
-    this->send_steps(ws, steps, "拆分plist");
-    auto files = DirHelper::GetFiles(download_dir, "*");
-    for(auto file : files){
-        auto path = std::filesystem::path(file);
-        auto extension = path.extension();
-        auto filename = path.filename();
-        if(extension == ".csb" || extension == ".mp3" || extension == ".swf" || extension == ".json"){
-            auto new_path = resPath + "/" + filename.string();
-            if (std::filesystem::is_regular_file(new_path)){
-                std::filesystem::remove(new_path);
-            }
-            std::filesystem::copy_file(file, new_path);
-        }
-        if (extension == ".plist"){
-            auto name = path.stem();
-            auto image_path = download_dir + "/" +name.string() + ".png";
-            PlistParser parser;
-            parser.load(image_path, file);
-            parser.save(temp_path);
-        }
-        auto new_path = output_path + "/" + filename.string();
-        if (std::filesystem::is_regular_file(new_path)){
-            std::filesystem::remove(new_path);
-        }
-        std::filesystem::copy_file(file, new_path);
-    }
-    this->send_steps(ws, steps, "完成");
+    ResConfigParser parser(ws, message);
+    parser.Parse();
     this->handle_get_files(ws, message);
 }
 

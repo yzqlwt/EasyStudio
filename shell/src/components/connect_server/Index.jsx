@@ -40,7 +40,7 @@ class Index extends React.Component {
     };
 
     startServer = () => {
-        if (process.env.NODE_ENV === 'production' || true) {
+        if (process.env.NODE_ENV === 'production') {
             const exec = window.require('child_process').execFile;
             exec(getServerPath(), (err, data) => {
                 console.log(err);

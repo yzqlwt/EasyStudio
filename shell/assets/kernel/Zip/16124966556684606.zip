@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error>
+  <Code>AccessDenied</Code>
+  <Message>The bucket you access does not belong to you.</Message>
+  <RequestId>601CBF10BE768F3930D7CC39</RequestId>
+  <HostId>gstatic-cn.oss-cn-hangzhou.aliyuncs.com</HostId>
+</Error>

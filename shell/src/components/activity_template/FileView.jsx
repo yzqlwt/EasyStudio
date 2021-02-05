@@ -5,17 +5,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { send } from '../../middleware/websocket';
 import { get, last, find } from 'lodash';
+import { getIconPath } from '../../common/global';
 
 const { remote } = window.require('electron');
 
 class FileView extends React.Component {
     isClicked = false;
     previews = {
-        '.mp3': '/images/mp3.png',
-        '.swf': '/images/swf.png',
-        '.json': '/images/json.png',
-        '.csb': '/images/csb.png',
-        '.plist': '/images/plist.png',
+        '.mp3': 'mp3.png',
+        '.swf': 'swf.png',
+        '.json': 'json.png',
+        '.csb': 'csb.png',
+        '.plist': 'plist.png',
     };
 
     tags = {
@@ -37,11 +38,9 @@ class FileView extends React.Component {
                 />
             );
         } else {
-            const path =
-                remote.getGlobal('shareObject').RESOURCES_PATH + '/assets';
             return (
                 <img
-                    src={path + this.previews[item.type]}
+                    src={getIconPath(this.previews[item.type])}
                     alt={item.path}
                     style={{ height: 60, width: 'auto', maxWidth: '99%' }}
                 />

@@ -39,10 +39,10 @@ class StepsView extends React.Component {
     getSteps = () => {};
 
     componentWillReceiveProps(nextProps) {
-        const { msgSteps } = nextProps;
+        const { dataWebsocket } = nextProps;
         const { visible } = this.state;
-        const steps = get(msgSteps, 'data.steps', []);
-        const current = get(msgSteps, 'data.current', []);
+        const steps = get(dataWebsocket, ["steps", "steps"], []);
+        const current = get(dataWebsocket, 'steps.current', []);
         if (steps.length == 0) {
             return;
         }
@@ -106,8 +106,8 @@ StepsView.propTypes = {
 };
 
 function stateToProps(state) {
-    const { dataWebsocket, msgSteps } = state;
-    return { dataWebsocket, msgSteps };
+    const { dataWebsocket } = state;
+    return { dataWebsocket };
 }
 
 export default connect(stateToProps)(StepsView);

@@ -17,6 +17,8 @@
 
 namespace fs = std::filesystem;
 
+static  std::string CCS = "";
+
 std::string Tools::GetMd5(const std::string& file){
     if(std::filesystem::is_regular_file(file)){
         std::ifstream inf(file,std::ios::in|std::ios::binary) ;
@@ -229,4 +231,20 @@ void Tools::AddWatcher() {
         }
     });
     watcher.start();
+}
+
+void Tools::init() {
+    auto cacheDir = DirHelper::GetCacheDir();
+    auto path = fs::path(cacheDir);
+    path = path / "config.json";
+    auto content = Tools::ReadFile(path.string());
+    if (nlohmann::json::accept(content)){
+        nlohmann::json json = nlohmann::json::parse(content);
+        auto ccs_path = json["CCSPath"].get<std::string>();
+        CCS = ccs_path;
+    }
+}
+
+std::string Tools::GetCCSPath() {
+    return CCS;
 }

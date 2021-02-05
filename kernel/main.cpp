@@ -7,6 +7,7 @@
 #include "utils/Tools.h"
 
 int main() {
+    Tools::init();
     Tools::CopyJSFL();
     std::thread threadObj([](){
         Tools::AddWatcher();

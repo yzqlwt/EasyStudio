@@ -8,11 +8,13 @@ websocket/CMakeFiles/websocket.dir/Handlers.cpp.obj
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/DirHelper.h
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/PlistParser.h
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/RequestHelper.h
+ C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/ResConfigParser.h
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/Tools.h
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/ZipHelper.h
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/bundle.h
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/websocket/Handlers.cpp
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/websocket/Handlers.h
+ C:/Users/yzqlwt/Documents/EasyStudio/kernel/websocket/WebSocketServer.h
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/boost/any.hpp
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/boost/archive/archive_exception.hpp
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/boost/archive/detail/abi_prefix.hpp

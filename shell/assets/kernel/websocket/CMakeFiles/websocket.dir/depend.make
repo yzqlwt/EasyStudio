@@ -7,11 +7,13 @@ websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\E
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\utils\DirHelper.h
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\utils\PlistParser.h
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\utils\RequestHelper.h
+websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\utils\ResConfigParser.h
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\utils\Tools.h
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\utils\ZipHelper.h
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\utils\bundle.h
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\websocket\Handlers.cpp
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\websocket\Handlers.h
+websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\Documents\EasyStudio\kernel\websocket\WebSocketServer.h
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\vcpkg\installed\x86-windows\include\boost\any.hpp
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\vcpkg\installed\x86-windows\include\boost\archive\archive_exception.hpp
 websocket\CMakeFiles\websocket.dir\Handlers.cpp.obj: C:\Users\yzqlwt\vcpkg\installed\x86-windows\include\boost\archive\detail\abi_prefix.hpp

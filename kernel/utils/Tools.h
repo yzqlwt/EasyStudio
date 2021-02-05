@@ -24,6 +24,8 @@ public:
     static std::string GetToken();
     static void CopyJSFL();
     static void AddWatcher();
+    static void init();
+    static std::string GetCCSPath();
 };
 
 

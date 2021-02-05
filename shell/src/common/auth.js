@@ -1,4 +1,5 @@
 import { AUTH_SERVER, REFRESH_SERVER } from '../configs/config';
+import { setToken, getToken } from './global'
 
 // 1000 * 60 * 5;
 const THRESHOLD = 300000;
@@ -19,18 +20,11 @@ function toMillSecond(second) {
 function persistentToLocalStorage(token) {
     // cover max-age to expires.
     token.expires_in = toMillSecond(token.expires_in) + Date.now();
-    if (IS_INTEGRATION) {
-        localStorage.token_integration = JSON.stringify(token);
-    } else {
-        localStorage.token = JSON.stringify(token);
-    }
+    setToken(JSON.stringify(token));
 }
 
 function mergeLocalStorage(token) {
-    const tokenString = IS_INTEGRATION
-        ? localStorage.token_integration
-        : localStorage.token;
-    const origin = JSON.parse(tokenString) || {};
+    const origin = getToken();
     const newToken = {
         ...origin,
         ...token,
@@ -113,19 +107,8 @@ const auth = {
     },
 
     deSerializeToken() {
-        const token = IS_INTEGRATION
-            ? localStorage.token_integration
-            : localStorage.token;
-
-        if (!token) {
-            return null;
-        }
-
-        try {
-            return JSON.parse(token);
-        } catch (e) {
-            return null;
-        }
+        const token = getToken()
+        return token;
     },
 
     initFreshTokenTimmer() {

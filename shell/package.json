@@ -85,9 +85,8 @@
       "./assets/**"
     ],
     "publish": {
-      "provider": "github",
-      "owner": "www.yzqlwt.easystudio",
-      "repo": "www.yzqlwt.easystudio"
+      "provider": "generic",
+      "url": "http://qiniu.yzqlwt.com/"
     }
   },
   "repository": {

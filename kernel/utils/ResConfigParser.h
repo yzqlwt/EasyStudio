@@ -6,17 +6,25 @@
 #define EASYSTUDIO_RESCONFIGPARSER_H
 
 #include <string>
+#include "../websocket/WebSocketServer.h"
 
 class ResConfigParser {
 
 public:
-    ResConfigParser(const std::string& dir, const std::string& zipPath);
+    ResConfigParser(WS& ws, const std::string& message);
     void Parse();
+    void Download();
 private:
-    std::string m_targetDir;
-    std::string m_resDir;
-    std::string m_tempDir;
-    std::string m_zipDir;
+    WS& m_ws;
+    std::string m_skin_path;
+    std::string m_uri;
+    std::string m_version;
+    std::vector<std::string> m_files;
+    void SendSteps(std::string current);
+    void SendTips(std::string tip);
+    void HandleResources();
+    bool CheckResources();
+    void ReadCCSFiles();
 };
 
 
