@@ -11,16 +11,28 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import path from 'path';
+import { dialog } from 'electron';
 import { app, BrowserWindow, shell } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
+
 
 export default class AppUpdater {
     constructor() {
         log.transports.file.level = 'info';
         autoUpdater.logger = log;
         autoUpdater.checkForUpdatesAndNotify();
+        // checkForUpdates();
+        autoUpdater.on('update-available', (info) => {
+            dialog.showMessageBox({
+              type: 'info',
+              title: '更新提示',
+              message: '发现有新版本'+ info.version,
+              buttons: ['我知道了'],
+              cancelId: 1,
+            })
+          })
     }
 }
 
@@ -85,7 +97,6 @@ const createWindow = async () => {
     });
 
     mainWindow.loadURL(`file://${__dirname}/index.html`);
-
     // @TODO: Use 'ready-to-show' event
     //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
     mainWindow.webContents.on('did-finish-load', () => {

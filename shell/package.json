@@ -86,7 +86,8 @@
     ],
     "publish": {
       "provider": "generic",
-      "url": "http://qiniu.yzqlwt.com/"
+      "url": "http://qiniu.yzqlwt.com/",
+      "channel": "latest"
     }
   },
   "repository": {

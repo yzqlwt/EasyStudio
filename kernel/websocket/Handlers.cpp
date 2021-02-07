@@ -102,11 +102,19 @@ void Handlers::handle_upload(WS& ws, const std::string& message) {
                 {
                     auto part_path = iter->str();
                     auto path = DirHelper::GetCsdDir("")+part_path;
-                    auto md5 = Tools::GetMd5(path);
-                    auto plist_name = Tools::GetPlistName(plist_files, md5);
-                    char str[1024];
-                    sprintf(str, "Type=\"PlistSubImage\" Path=\"%s\" Plist=\"%s\"", (md5+".png").c_str(), (unzip_path+"/"+plist_name+".plist").c_str());
-                    Tools::replace_str(content, elem, str);
+                    if (std::filesystem::is_regular_file(path)){
+                        auto md5 = Tools::GetMd5(path);
+                        auto plist_name = Tools::GetPlistName(plist_files, md5);
+                        char str[1024];
+                        sprintf(str, "Type=\"PlistSubImage\" Path=\"%s\" Plist=\"%s\"", (md5+".png").c_str(), (unzip_path+"/"+plist_name+".plist").c_str());
+                        Tools::replace_str(content, elem, str);
+                    }else{
+                        nlohmann::json res;
+                        res["id"] = "tips";
+                        res["content"] = std::string("文件不存在:")+path;
+                        res["type"] = "error";
+                        ws.write(net::buffer(res.dump()));
+                    }
                 }
             }
             auto csb_path = resourcePath + "/" + std::filesystem::path(file).stem().string() + ".csb";
