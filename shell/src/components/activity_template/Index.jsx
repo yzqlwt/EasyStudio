@@ -225,13 +225,13 @@ class Index extends React.Component {
     menu = (
         <Menu>
             <Menu.Item key="images" onClick={this.handleOpenFolder}>
-                csd
+                图片路径
             </Menu.Item>
             <Menu.Item key="others" onClick={this.handleOpenFolder}>
-                音效动画
+                音效动画路径
             </Menu.Item>
             <Menu.Item key="cache" onClick={this.handleOpenFolder}>
-                mango cache
+                客户端缓存路径
             </Menu.Item>
         </Menu>
     );

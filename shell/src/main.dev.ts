@@ -30,6 +30,7 @@ export default class AppUpdater {
               title: '更新提示',
               message: '发现有新版本'+ info.version,
               buttons: ['我知道了'],
+              noLink: true,
               cancelId: 1,
             })
           })

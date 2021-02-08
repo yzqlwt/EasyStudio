@@ -4,7 +4,8 @@
 
 import path from 'path';
 import webpack from 'webpack';
-import { dependencies as externals } from '../../src/package.json';
+import { dependencies as externals, version } from '../../src/package.json';
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 export default {
   externals: [...Object.keys(externals || {})],
@@ -41,6 +42,11 @@ export default {
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production',
+    }),
+    new HtmlWebpackPlugin({
+        title: 'Hello EasyStudio v'+version,
+        template: 'src/template.html',
+        filename: 'src/index.html',
     }),
   ],
 };

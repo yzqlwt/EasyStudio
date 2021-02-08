@@ -1,10 +1,31 @@
-<!doctype html><html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/><meta name="theme-color" content="#000000"/><link rel="stylesheet" href="../node_modules/antd/dist/antd.css"/><title>Hello EasyStudio v3.1.1</title><script>(() => {
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,shrink-to-fit=no"
+        />
+        <meta name="theme-color" content="#000000" />
+        <link rel="stylesheet" href="../node_modules/antd/dist/antd.css" />
+        <title><%= htmlWebpackPlugin.options.title %></title>
+        <script>
+            (() => {
                 const link = document.createElement('link');
                 link.rel = 'stylesheet';
                 link.href = './dist/style.css';
                 // HACK: Writing the script path should be done with webpack
                 document.getElementsByTagName('head')[0].appendChild(link);
-            })();</script><script defer="defer" src="./src/main.prod.js"></script><script defer="defer" src="./src/main.prod.js"></script><script defer="defer" src="./src/main.prod.js"></script><script defer="defer" src="./src/main.prod.js"></script></head><body><div id="root" style="width: 100%; height: 100%;"></div><script>if (typeof process === 'object') {
+            })();
+        </script>
+        <script defer="defer" src="./src/main.prod.js"></script>
+        <script defer="defer" src="./src/main.prod.js"></script>
+        <script defer="defer" src="./src/main.prod.js"></script>
+    </head>
+    <body>
+        <div id="root" style="width: 100%; height: 100%;"></div>
+        <script>
+            if (typeof process === 'object') {
                 const scripts = [];
 
                 if (process.env.NODE_ENV === 'development') {
@@ -31,4 +52,7 @@
                             .join('')
                     );
                 }
-            }</script></body></html>
+            }
+        </script>
+    </body>
+</html>
