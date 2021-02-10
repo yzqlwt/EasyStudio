@@ -27,9 +27,9 @@ export default class AppUpdater {
         autoUpdater.on('update-available', (info) => {
             dialog.showMessageBox({
               type: 'info',
-              title: '更新提示',
-              message: '发现有新版本'+ info.version,
-              buttons: ['我知道了'],
+              title: '更新提示'+info.version,
+              message: '不要关闭~, 后台在下载更新~~~',
+              buttons: ['嗯, 我不会关闭的'],
               noLink: true,
               cancelId: 1,
             })

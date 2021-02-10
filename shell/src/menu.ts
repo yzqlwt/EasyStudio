@@ -250,6 +250,12 @@ export default class MenuBuilder {
                             this.mainWindow.webContents.send("setting", 'ccs');
                         },
                     },
+                    {
+                        label: '更新日志',
+                        click: (e) => {
+                            this.mainWindow.webContents.send("update-log", 'ccs');
+                        },
+                    },
                 ],
             },
         ];

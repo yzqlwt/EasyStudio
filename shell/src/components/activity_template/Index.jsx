@@ -39,6 +39,7 @@ import {
     getAbsoluteStaticUrl,
 } from '../../common/library';
 import { send } from '../../middleware/websocket';
+import { tinypng } from '../../common/tinypng';
 import { EllipsisOutlined } from '@ant-design/icons';
 
 class Index extends React.Component {
@@ -139,6 +140,9 @@ class Index extends React.Component {
                 isShowCCSSetting: true
             })
         });
+        ipcRenderer.on('update-log',(type)=>{
+            message.info('添加了压缩图集功能~~');
+        });
     }
 
     componentWillReceiveProps(nextProps, nextContext) {
@@ -224,14 +228,21 @@ class Index extends React.Component {
 
     menu = (
         <Menu>
-            <Menu.Item key="images" onClick={this.handleOpenFolder}>
-                图片路径
-            </Menu.Item>
-            <Menu.Item key="others" onClick={this.handleOpenFolder}>
-                音效动画路径
+            <Menu.Item key="others" onClick={()=>{
+                const { dispatch } = this.props;
+                dispatch(
+                    send({
+                        id: 'download',
+                        template_id: this.state.templateId,
+                        skin_id: this.state.skinId,
+                        unzip_path: this.getPath(),
+                    })
+                );
+            }}>
+                从后台导入
             </Menu.Item>
             <Menu.Item key="cache" onClick={this.handleOpenFolder}>
-                客户端缓存路径
+                这里是客户端缓存
             </Menu.Item>
         </Menu>
     );
@@ -251,27 +262,36 @@ class Index extends React.Component {
                 subTitle=""
                 extra={[
                     <Button
-                        key="creator"
-                        onClick={() => {
-                            message.info('还没做完。。。');
-                        }}
-                    >
-                        在Creator中打开
-                    </Button>,
-                    <Button
-                        key="download"
-                        onClick={() => {
+                        key="others"
+                        onClick={()=>{
                             dispatch(
                                 send({
-                                    id: 'download',
+                                    id: 'go_to_folder',
                                     template_id: this.state.templateId,
                                     skin_id: this.state.skinId,
+                                    type: 'others',
                                     unzip_path: this.getPath(),
                                 })
                             );
                         }}
                     >
-                        下载
+                        这里放音效动画
+                    </Button>,
+                    <Button
+                        key="images"
+                        onClick={()=>{
+                            dispatch(
+                                send({
+                                    id: 'go_to_folder',
+                                    template_id: this.state.templateId,
+                                    skin_id: this.state.skinId,
+                                    type: 'images',
+                                    unzip_path: this.getPath(),
+                                })
+                            );
+                        }}
+                    >
+                        这里放图片
                     </Button>,
                     <Button
                         key="1"

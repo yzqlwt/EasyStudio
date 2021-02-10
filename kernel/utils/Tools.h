@@ -26,6 +26,7 @@ public:
     static void AddWatcher();
     static void init();
     static std::string GetCCSPath();
+    static std::string GetBase64(const std::string& content);
 };
 
 

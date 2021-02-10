@@ -6,11 +6,35 @@
 #include "Tools.h"
 #include <curl/curl.h>
 #include <fstream>
+#include <filesystem>
+#include <cstdlib>
 #include <boost/format.hpp>
 #include <nlohmann/json.hpp>
 
 static std::string BaseUrl = "https://gate2.betamath.com";
 static std::string ResUrl = "https://gstatic-cn.oss-cn-hangzhou.aliyuncs.com";
+static std::vector<std::string> Keys = {
+        "q3ZYnPZ9BcBcf3T91X5yppdvW0qMSBhk",
+        "shsEABw40_1DasWNfxDhtqvb-fpwVnEG",
+        "tSeWVzvsLPuBXXnIUe9vVGJhMW0VcoVT",
+        "g8EyUYESWC15bPc8n4XozCfhp1Aj-jeH",
+        "_gUJq__T2WqRuaxMqicsQ_haR4tVyoot",
+        "5uHc16uIMwZQQhbqWIpWfsYe2wKjQZTl",
+        "erJdW_5ulXIUfqVQDYT9lBPkuxUT3l9p",
+        "tTmNjy02hfe6zraAbagT_9HRqUZIK08l",
+        "wcQ9z-XPp9HWx7ORkR35VuJ8T31bMlSQ",
+        "05n6dNVJz0d9xTHMl3hp1l8SKtmwDdVx",
+        "ufmUtYfhFQ2wEzfWxHKBldV8JLUfp9yk",
+        "7KH0JJvMX1EoasyqzXS-hNRfW87wmv-n",
+        "c0wF8VFyBMs8nd6lmCnTsBTqSlL79ZV0",
+        "yCCZ0DwGY722kGkbnFH9TfFSfZLsRKtK",
+        "7x4fOqyd2QQ7LD2rmozYqN55C7XHedYY",
+        "M3_KkLtnxcByk9f_WeUGc-rW-Th66b9Z",
+        "hEbz1r41yTP_CaKx8QXx0j5OAKZJg9CL",
+        "YwWQqTbp7ezihjM8DJ2wzgpEDRRmkuap",
+        "MGgJYCh4aZ0hga7rU7coWmJwT4_-lFON",
+        "f3yJMWP6X3RMNr0s2cGsLTgRj9q9smhK",
+};
 
 size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     size_t written = fwrite(ptr, size, nmemb, stream);
@@ -234,12 +258,8 @@ void RequestHelper::ModifyResConfig(const std::string& id, const std::string& it
     std::cout << "修改ResConfig：" << res->body << std::endl;
 }
 
-
-std::string RequestHelper::DownloadZip(const std::string &uri, const std::string& zipPath) {
-    auto url = ResUrl + uri;
-    auto savePath = zipPath + "/" + std::to_string(std::chrono::system_clock::now().time_since_epoch().count()) + ".zip";
-//    url = "https://mirrors.163.com/debian/dists/Debian10.7/Release";
-    FILE *fp = fopen(savePath.c_str(), "wb");
+std::string RequestHelper::Download(const std::string &uri, const std::string &path) {
+    FILE *fp = fopen(path.c_str(), "wb");
 
     //curl初始化
     CURL *curl = curl_easy_init();
@@ -256,7 +276,7 @@ std::string RequestHelper::DownloadZip(const std::string &uri, const std::string
         curl_easy_setopt(curl, CURLOPT_HEADER, 0);
 
         //设置请求的URL地址
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+        curl_easy_setopt(curl, CURLOPT_URL, uri.c_str());
 
         //设置ssl验证
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -284,7 +304,13 @@ std::string RequestHelper::DownloadZip(const std::string &uri, const std::string
     curl_easy_cleanup(curl);
     //释放文件资源
     fclose(fp);
-    return savePath;
+    return path;
+}
+
+std::string RequestHelper::DownloadZip(const std::string &uri, const std::string& zipPath) {
+    auto url = ResUrl + uri;
+    auto savePath = zipPath + "/" + std::to_string(std::chrono::system_clock::now().time_since_epoch().count()) + ".zip";
+    return Download(url, savePath);
 }
 
 std::string RequestHelper::GetResZipUri(std::string &attachments) {
@@ -299,6 +325,37 @@ std::string RequestHelper::GetResZipUri(std::string &attachments) {
     }
     return "";
 }
+
+void RequestHelper::TinyPng(const std::string &path) {
+    std::cout << "压缩图" << path << std::endl;
+    auto filename = std::filesystem::path(path).filename();
+    httplib::Client cli("https://api.tinify.com");
+    auto index = rand() % Keys.size();
+    auto token = std::string("Basic ")+Tools::GetBase64(std::string("api:")+Keys[index]);
+    cli.set_default_headers({
+                                    {"User-Agent", "Chrome/86.0.4240.198 Safari/537.36"},
+                                    {"Authorization", token}
+                            });
+
+    std::ifstream ifs(path, std::ios::in | std::ios::binary);
+    std::stringstream ss;
+    ss << ifs.rdbuf();
+    ifs.close();
+    std::string content(ss.str());
+    auto res = cli.Post("/shrink", content, "image/png");
+    if (nlohmann::json::accept(res->body)){
+        auto json = nlohmann::json::parse(res->body);
+        if (res->body.find("error") != std::string::npos){
+            return TinyPng(path);
+        }else{
+            std::cout << "tiny png" <<json.dump() << std::endl;
+            auto url = json["output"]["url"].get<std::string>();
+            Download(url, path);
+        }
+    }
+}
+
+
 
 
 

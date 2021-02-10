@@ -19,12 +19,14 @@ public:
     static std::string DownloadZip(const std::string& uri, const std::string& savePath);
     static std::string GetResZipUri(std::string& attachments);
     static void UploadFile(const std::string &path, const std::string &itemId);
+    static void TinyPng(const std::string &path);
     static void        AddResConfig(const std::string& itemId, const std::string& attachmentId);
     static void        ModifyResConfig(const std::string& id, const std::string& itemId, const std::string& attachmentId);
     static std::string GetResConfigId(const std::string &itemId, const std::string &itemType);
 
 private:
     static std::string Get(const std::string& uri);
+    static std::string Download(const std::string& uri, const std::string& path);
 };
 
 #endif //EASYSTUDIO_REQUESTHELPER_H

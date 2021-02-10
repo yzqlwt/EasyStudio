@@ -21,6 +21,16 @@ class Index extends React.Component {
         const { dataWebsocket } = nextProps;
         if (dataWebsocket.connected) {
             clearInterval(this.repeatId);
+            const { dispatch } = this.props;
+            dispatch({
+                type: 'REDUX_WEBSOCKET::MESSAGE',
+                payload:{
+                    message:{
+                        id: "tips",
+                        content: "",
+                    }
+                }
+            });
             const value = auth.isValidToken();
             if (value == 1) {
                 this.props.history.push('/activity');

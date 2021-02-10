@@ -29,6 +29,7 @@ void Handlers::handle_upload(WS& ws, const std::string& message) {
         auto steps = std::vector<std::string>{
             "资源分析",
             "生成图集",
+            "压缩图片",
             "生成CSB",
             "打包&上传到后台",
             "完成",
@@ -84,11 +85,15 @@ void Handlers::handle_upload(WS& ws, const std::string& message) {
         std::cout  << "config: " << config.dump() << std::endl;
         this->send_steps(ws, steps, "生成图集");
         auto plist_files = Tools::TexturePackage(temp_path, output_path);
-        this->send_steps(ws, steps, "生成CSB");
+        this->send_steps(ws, steps, "压缩图片");
         auto plist_files_name = std::vector<std::string>();
         for (auto file : plist_files){
             plist_files_name.push_back(std::filesystem::path(file).stem().string());
+            auto path = std::filesystem::path(file);
+            auto png = path.parent_path() / path.stem();
+            RequestHelper::TinyPng(png.string()+".png");
         }
+        this->send_steps(ws, steps, "生成CSB");
         config["plist"] = plist_files_name;
         config["version"] = "3.0";
         for (auto file : csd_files){
@@ -141,12 +146,21 @@ void Handlers::handle_upload(WS& ws, const std::string& message) {
         config["resource"] = resource;
         auto content = config.dump();
         Tools::WriteFile(output_path+"/ResConfig.json", content);
-        auto zip_path = DirHelper::GetZipDir(dir) + "/ResConfig.zip";
+        auto t = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
+        std::stringstream ss;
+        ss << std::put_time(std::localtime(&t), "%Y-%m-%d %H.%M.%S");
+        auto name = ss.str() + ".zip";
+        auto zip_path = DirHelper::GetZipDir(dir) + "/" + name;
         ZipHelper::Zip zip(output_path, zip_path);
         this->send_steps(ws, steps, "打包&上传到后台");
         RequestHelper::UploadFile(zip_path, std::to_string(skin_id));
         this->send_steps(ws, steps, "完成");
         this->handle_get_files(ws, message);
+        auto csb_files = DirHelper::GetFiles(resourcePath, ".csb");
+        for (auto file : csb_files){
+            std::cout << "FILE: " << file << std::endl;
+            std::filesystem::remove(file);
+        }
 }
 
 void Handlers::handle_open_folder(WS &, const std::string &message) {

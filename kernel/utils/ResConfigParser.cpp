@@ -76,17 +76,20 @@ void ResConfigParser::HandleResources() {
     auto download_dir = DirHelper::GetDownloadDir(this->m_skin_path);
     auto temp_path = DirHelper::GetTempDir(this->m_skin_path);
     auto output_path = DirHelper::GetOutputDir(this->m_skin_path);
+    auto res_path   = DirHelper::GetResourceDir(this->m_skin_path);
     this->SendSteps("处理资源");
     for(auto file : this->m_files){
         auto path = std::filesystem::path(file);
         auto extension = path.extension();
         auto filename = path.filename();
-        if(extension == ".csb" || extension == ".mp3" || extension == ".swf" || extension == ".json"){
-            auto new_path = this->m_skin_path + "/" + filename.string();
-            if (std::filesystem::is_regular_file(new_path)){
-                std::filesystem::remove(new_path);
+        if(extension == ".mp3" || extension == ".swf" || extension == ".json"){
+            if (filename.string().compare("ResConfig.json")!=0){
+                auto new_path = res_path + "/" + filename.string();
+                if (std::filesystem::is_regular_file(new_path)){
+                    std::filesystem::remove(new_path);
+                }
+                std::filesystem::copy_file(file, new_path);
             }
-            std::filesystem::copy_file(file, new_path);
         }
         if (extension == ".plist"){
             auto name = path.stem();

@@ -4010,10 +4010,30 @@ utils/CMakeFiles/utils.dir/Tools.cpp.obj
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/opencv2/video/background_segm.hpp
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/opencv2/video/tracking.hpp
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/opencv2/videoio.hpp
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/asn1.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/asn1err.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/bio.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/bioerr.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/bn.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/bnerr.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/buffer.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/buffererr.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/crypto.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/cryptoerr.h
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/e_os2.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/ebcdic.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/evp.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/evperr.h
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/md5.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/obj_mac.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/objects.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/objectserr.h
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/opensslconf.h
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/opensslv.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/ossl_typ.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/safestack.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/stack.h
+ C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/openssl/symhacks.h
  C:/Users/yzqlwt/vcpkg/installed/x86-windows/include/tinyxml2.h
 utils/CMakeFiles/utils.dir/bundle.cpp.obj
  C:/Users/yzqlwt/Documents/EasyStudio/kernel/utils/bundle.cpp
