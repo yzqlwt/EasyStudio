@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Result } from 'antd';
+import { Button, Result, Drawer } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 import { connect as wsconnect } from '../../middleware/websocket';
 import auth from '../../common/auth';
@@ -11,6 +11,7 @@ import { withRouter } from 'react-router-dom';
 class Index extends React.Component {
     state = {
         connection: 'wait',
+        visible: false,
     };
 
     componentDidMount() {
@@ -79,9 +80,11 @@ class Index extends React.Component {
                             }}
                         >
                             Enter
-                        </Button>,
+                        </Button>
                     ]}
-                />
+                >
+                </Result>
+
             );
         } else {
             return (

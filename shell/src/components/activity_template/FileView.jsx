@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { send } from '../../middleware/websocket';
 import { get, last, find } from 'lodash';
 import { getIconPath } from '../../common/global';
-
+import './tabs.less';
 const { remote } = window.require('electron');
 
 class FileView extends React.Component {
@@ -29,6 +29,7 @@ class FileView extends React.Component {
     };
 
     getPreview = (item) => {
+        console.log(item, "item")
         if (item.type === '.png') {
             return (
                 <img
@@ -38,9 +39,10 @@ class FileView extends React.Component {
                 />
             );
         } else {
+            const preview = this.previews[item.type]
             return (
-                <img
-                    src={getIconPath(this.previews[item.type])}
+                preview && <img
+                    src={getIconPath(preview)}
                     alt={item.path}
                     style={{ height: 60, width: 'auto', maxWidth: '99%' }}
                 />
@@ -49,13 +51,14 @@ class FileView extends React.Component {
     };
 
     componentDidMount() {
-        const { templateId, skinId, dispatch } = this.props;
+        const { templateId, skinId, dispatch, unzipPath } = this.props;
         console.log('componentDidMount ');
         dispatch(
             send({
                 id: 'files',
                 template_id: templateId,
                 skin_id: skinId,
+                unzip_path: unzipPath,
             })
         );
     }
@@ -74,60 +77,61 @@ class FileView extends React.Component {
     // }
 
     render() {
-        const { dataWebsocket, dispatch, templateId, skinId } = this.props;
-        const files = get(dataWebsocket, ['files', 'files'], []);
+        const { dataWebsocket, dispatch, templateId, skinId, type } = this.props;
+        const files = get(dataWebsocket, ['files', 'files', type], []);
+        console.log(files)
         return (
-            <ReactCustomScrollBars
-                autoHide
-                autoHideTimeout={600}
-                autoHideDuration={400}
-            >
-                <List
-                    grid={{
-                        gutter: 16,
-                        xs: 1,
-                        sm: 2,
-                        md: 4,
-                        lg: 4,
-                        xl: 6,
-                        xxl: 3,
-                    }}
-                    dataSource={files}
-                    renderItem={(item) => (
-                        <List.Item>
-                            <Card
-                                bodyStyle={{ padding: '2px 3px 0px' }}
-                                hoverable
-                                onClick={() => {
-                                    dispatch(
-                                        send({
-                                            id: 'open_file',
-                                            path: item.path,
-                                        })
-                                    );
-                                }}
-                            >
-                                <Col style={{ width: '100%' }}>
-                                    <Row align="center">
-                                        {this.getPreview(item)}
-                                    </Row>
-                                    <Row align="center">
-                                        <b
-                                            style={{
-                                                wordBreak: 'break-all',
-                                                width: '100%',
-                                                textAlign: 'center',
-                                            }}
-                                        >
-                                            {item.name}
-                                        </b>
-                                    </Row>
-                                </Col>
-                            </Card>
-                        </List.Item>
-                    )}
-                />
-            </ReactCustomScrollBars>
+                <ReactCustomScrollBars
+                    autoHide
+                    autoHideTimeout={600}
+                    autoHideDuration={400}
+                >
+                    <List
+                        grid={{
+                            gutter: 16,
+                            xs: 1,
+                            sm: 2,
+                            md: 4,
+                            lg: 4,
+                            xl: 6,
+                            xxl: 3,
+                        }}
+                        dataSource={files}
+                        renderItem={(item) => (
+                            <List.Item>
+                                <Card
+                                    bodyStyle={{ padding: '2px 3px 0px' }}
+                                    hoverable
+                                    onClick={() => {
+                                        dispatch(
+                                            send({
+                                                id: 'open_file',
+                                                path: item.path,
+                                            })
+                                        );
+                                    }}
+                                >
+                                    <Col style={{ width: '100%' }}>
+                                        <Row align="center">
+                                            {this.getPreview(item)}
+                                        </Row>
+                                        <Row align="center">
+                                            <b
+                                                style={{
+                                                    wordBreak: 'break-all',
+                                                    width: '100%',
+                                                    textAlign: 'center',
+                                                }}
+                                            >
+                                                {item.name}
+                                            </b>
+                                        </Row>
+                                    </Col>
+                                </Card>
+                            </List.Item>
+                        )}
+                    />
+                </ReactCustomScrollBars>
         );
     }
 }
@@ -136,11 +140,13 @@ FileView.propTypes = {
     dispatch: PropTypes.func.isRequired,
     templateId: PropTypes.number.isRequired,
     skinId: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    unzipPath: PropTypes.string.isRequired,
 };
 
 function stateToProps(state) {
     const { dataWebsocket } = state;
-    return { dataWebsocket};
+    return { dataWebsocket };
 }
 
 export default connect(stateToProps)(FileView);

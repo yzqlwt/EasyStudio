@@ -13,9 +13,7 @@
 #include <regex>
 #include <stdio.h>
 
-typedef std::map<std::string, std::string> Property;
-typedef std::pair<std::string, Property> Item;
-typedef std::map<std::string, Property> Resource;
+
 
 void Handlers::handle_upload(WS& ws, const std::string& message) {
         if (Tools::GetCCSPath() == ""){
@@ -186,31 +184,22 @@ void Handlers::handle_get_files(WS &ws, const std::string &message) {
     auto data = nlohmann::json::parse(message);
     int template_id = data["template_id"].get<int>();
     int skin_id = data["skin_id"].get<int>();
+    std::string unzip_path = data["unzip_path"].get<std::string>();
     auto path = DirHelper::GetDirByTemplateAndSkin(template_id, skin_id);
     auto output_dir = DirHelper::GetOutputDir(path);
-    std::cout << output_dir << std::endl;
     auto files = DirHelper::GetFiles(output_dir);
-    std::vector<Property> filesInfo;
-    for (auto file : files){
-        Tools::replace_str(file, "\\", "/");
-        auto lstTime = fs::last_write_time(file);
-        auto elapse = std::chrono::duration_cast<std::chrono::seconds>(std::filesystem::file_time_type::clock::now().time_since_epoch() - std::chrono::system_clock::now().time_since_epoch()).count();
-        auto systemTime = std::chrono::duration_cast<std::chrono::seconds>(lstTime.time_since_epoch()).count() - elapse;
-
-        auto path = std::filesystem::path(file);
-        Property info;
-        info["path"] = file;
-        info["type"] = path.extension().string();
-        info["name"] = path.filename().string();
-        info["size"] = std::to_string(std::filesystem::file_size(file));
-        info["time"] = std::to_string(systemTime);
-        filesInfo.push_back(info);
-    }
+    std::cout << "unzip_path path:" << unzip_path <<std::endl;
+    std::cout << "image path:" << DirHelper::GetCsdDir(unzip_path) <<std::endl;
+    auto output_info = getFilesInfo(DirHelper::GetOutputDir(path));
+    auto image_info = getFilesInfo(DirHelper::GetCsdDir(unzip_path));
+    auto others_info = getFilesInfo(DirHelper::GetResourceDir(path));
     nlohmann::json res;
     res["id"] = "files";
     res["result"] = 0;
     res["reason"] = "";
-    res["files"] = filesInfo;
+    res["files"]["others"] = others_info;
+    res["files"]["output"] = output_info;
+    res["files"]["image"] = image_info;
     std::cout << res.dump() << std::endl;
     ws.write(boost::asio::buffer(res.dump()));
 }
@@ -247,4 +236,24 @@ void Handlers::handle_open_file(WS &, const std::string &message) {
     std::string cmdStr = std::string("Win32") == BOOST_PLATFORM ? std::string("start  ")+path : std::string("open  ")+path;
     std::cout << cmdStr << std::endl;
     system(cmdStr.c_str());
+}
+
+std::vector<Property> Handlers::getFilesInfo(const std::string &path) {
+    auto files = DirHelper::GetFiles(path);
+    std::vector<Property> filesInfo;
+    for (auto file : files){
+        Tools::replace_str(file, "\\", "/");
+        auto lstTime = fs::last_write_time(file);
+        auto elapse = std::chrono::duration_cast<std::chrono::seconds>(std::filesystem::file_time_type::clock::now().time_since_epoch() - std::chrono::system_clock::now().time_since_epoch()).count();
+        auto systemTime = std::chrono::duration_cast<std::chrono::seconds>(lstTime.time_since_epoch()).count() - elapse;
+        auto path = std::filesystem::path(file);
+        Property info;
+        info["path"] = file;
+        info["type"] = path.extension().string();
+        info["name"] = path.filename().string();
+        info["size"] = std::to_string(std::filesystem::file_size(file));
+        info["time"] = std::to_string(systemTime);
+        filesInfo.push_back(info);
+    }
+    return filesInfo;
 }

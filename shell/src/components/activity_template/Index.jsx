@@ -16,6 +16,7 @@ import {
     Card,
     Divider,
     Dropdown,
+    Tabs,
 } from 'antd';
 import { get, last, find } from 'lodash';
 import ReactCustomScrollBars from 'react-custom-scrollbars';
@@ -42,11 +43,13 @@ import { send } from '../../middleware/websocket';
 import { tinypng } from '../../common/tinypng';
 import { EllipsisOutlined } from '@ant-design/icons';
 
+const { TabPane } = Tabs;
 class Index extends React.Component {
     state = {
         templateId: null,
         skinId: null,
         isShowCCSSetting: false,
+        isShowLog: true,
         params: {
             count: 12,
         },
@@ -134,14 +137,11 @@ class Index extends React.Component {
             history.replace('/connect');
         }
         const ipcRenderer = global.require('electron').ipcRenderer;
-        ipcRenderer.on('setting',(type)=>{
-            console.log("setting")
+        ipcRenderer.on('setting', (type) => {
+            console.log('setting');
             this.setState({
-                isShowCCSSetting: true
-            })
-        });
-        ipcRenderer.on('update-log',(type)=>{
-            message.info('添加了压缩图集功能~~');
+                isShowCCSSetting: true,
+            });
         });
     }
 
@@ -198,11 +198,26 @@ class Index extends React.Component {
         );
     };
 
-    handleCCSSetting(){
+    handleCCSSetting() {}
 
+    renderUpdateLog(){
+        return (
+            <Drawer
+            title="更新日志"
+            closable={false}
+            visible={this.state.isShowLog}
+            onClose={()=>{
+                this.setState({isShowLog:false})
+            }}
+            >
+                <strong>2.17: 上传之前压缩图片</strong>
+                <br></br>
+                <strong>2.18: 文件显示增加分栏</strong>
+            </Drawer>
+        );
     }
 
-    showServerTips(){
+    showServerTips() {
         const { dataWebsocket, dispatch } = this.props;
         const tips = get(dataWebsocket, 'tips', {});
         const content = get(tips, 'content', '');
@@ -210,35 +225,38 @@ class Index extends React.Component {
             return;
         }
         const type = get(tips, 'type', 'info');
-        if (type == "info"){
+        if (type == 'info') {
             message.info(content);
-        }else if(type == "error"){
+        } else if (type == 'error') {
             message.error(content);
         }
         dispatch({
             type: 'REDUX_WEBSOCKET::MESSAGE',
-            payload:{
-                message:{
-                    id: "tips",
-                    content: "",
-                }
-            }
+            payload: {
+                message: {
+                    id: 'tips',
+                    content: '',
+                },
+            },
         });
     }
 
     menu = (
         <Menu>
-            <Menu.Item key="others" onClick={()=>{
-                const { dispatch } = this.props;
-                dispatch(
-                    send({
-                        id: 'download',
-                        template_id: this.state.templateId,
-                        skin_id: this.state.skinId,
-                        unzip_path: this.getPath(),
-                    })
-                );
-            }}>
+            <Menu.Item
+                key="others"
+                onClick={() => {
+                    const { dispatch } = this.props;
+                    dispatch(
+                        send({
+                            id: 'download',
+                            template_id: this.state.templateId,
+                            skin_id: this.state.skinId,
+                            unzip_path: this.getPath(),
+                        })
+                    );
+                }}
+            >
                 从后台导入
             </Menu.Item>
             <Menu.Item key="cache" onClick={this.handleOpenFolder}>
@@ -263,7 +281,7 @@ class Index extends React.Component {
                 extra={[
                     <Button
                         key="others"
-                        onClick={()=>{
+                        onClick={() => {
                             dispatch(
                                 send({
                                     id: 'go_to_folder',
@@ -279,7 +297,7 @@ class Index extends React.Component {
                     </Button>,
                     <Button
                         key="images"
-                        onClick={()=>{
+                        onClick={() => {
                             dispatch(
                                 send({
                                     id: 'go_to_folder',
@@ -382,34 +400,40 @@ class Index extends React.Component {
         );
     }
 
-    renderCCSSetting(){
+    renderCCSSetting() {
         const { dispatch } = this.props;
         let value = getCCSPath();
         let path = value;
-        return(
+        return (
             <Modal
                 title="粘贴CCS文件路径"
                 visible={this.state.isShowCCSSetting}
-                onOk={()=>{
-                    console.log(value)
-                    this.setState({isShowCCSSetting:false})
-                    if (value.indexOf(".ccs")!=-1){
+                onOk={() => {
+                    console.log(value);
+                    this.setState({ isShowCCSSetting: false });
+                    if (value.indexOf('.ccs') != -1) {
                         setCCSPath(value);
-                        dispatch(send({
-                            id: "ccs",
-                        }))
-                    }else{
-                        message.error("路径错误,未包含.ccs")
+                        dispatch(
+                            send({
+                                id: 'ccs',
+                            })
+                        );
+                    } else {
+                        message.error('路径错误,未包含.ccs');
                     }
                 }}
-                onCancel={()=>{
-                    this.setState({isShowCCSSetting:false})
+                onCancel={() => {
+                    this.setState({ isShowCCSSetting: false });
                 }}
                 cancelText="关闭"
-                >
-                <Input placeholder=".ccs文件路径, 不包括引号" defaultValue={value} onChange={(e)=>{
-                    value = e.target.value;
-                }}/>
+            >
+                <Input
+                    placeholder=".ccs文件路径, 不包括引号"
+                    defaultValue={value}
+                    onChange={(e) => {
+                        value = e.target.value;
+                    }}
+                />
             </Modal>
         );
     }
@@ -418,9 +442,11 @@ class Index extends React.Component {
         const { dataActivity } = this.props;
         const { response } = dataActivity;
         const { dataWebSocket } = this.props;
+        const unzip_path = this.getPath();
         this.showServerTips();
         return (
             <Layout style={{ height: '100%' }}>
+                {this.renderUpdateLog()}
                 <Layout.Sider
                     theme="light"
                     width={320}
@@ -465,10 +491,51 @@ class Index extends React.Component {
                             {this.renderHeader()}
                         </Layout.Header>
                         <Layout.Content theme="light" style={{ padding: 30 }}>
-                            <FileView
-                                templateId={this.state.templateId}
-                                skinId={this.state.skinId}
-                            ></FileView>
+                            <div className="card-container">
+                                <Tabs
+                                    onChange={(e) => {
+                                        console.log(e);
+                                    }}
+                                    type="card"
+                                >
+                                    <TabPane
+                                        tab="输出"
+                                        key="output"
+                                        style={{ height: 400 }}
+                                    >
+                                        <FileView
+                                            templateId={this.state.templateId}
+                                            skinId={this.state.skinId}
+                                            type="output"
+                                            unzipPath= {unzip_path}
+                                        ></FileView>
+                                    </TabPane>
+                                    <TabPane
+                                        tab="动画音效"
+                                        key="others"
+                                        style={{ height: 500 }}
+                                    >
+                                        <FileView
+                                            templateId={this.state.templateId}
+                                            skinId={this.state.skinId}
+                                            type="others"
+                                            unzipPath= {unzip_path}
+                                        ></FileView>
+                                    </TabPane>
+                                    <TabPane
+                                        tab="图片"
+                                        key="image"
+                                        style={{ height: 500 }}
+                                    >
+                                        <FileView
+                                            templateId={this.state.templateId}
+                                            skinId={this.state.skinId}
+                                            type="image"
+                                            unzipPath= {unzip_path}
+                                        ></FileView>
+                                    </TabPane>
+                                </Tabs>
+                            </div>
                             <StepsView
                                 templateId={this.state.templateId}
                                 skinId={this.state.skinId}

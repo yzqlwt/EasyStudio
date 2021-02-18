@@ -27,21 +27,23 @@ using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 
 typedef websocket::stream<tcp::socket> WS;
 typedef std::function<void(WS&, const std::string&)> MessageCallback;
+typedef std::map<std::string, std::string> Property;
+typedef std::pair<std::string, Property> Item;
+typedef std::map<std::string, Property> Resource;
 
 class Handlers {
 public:
 
-
     void init(){
         this->m_callbacks["go_to_folder"] = std::bind(&Handlers::handle_open_folder, this, std::placeholders::_1,std::placeholders::_2);
-    this->m_callbacks["open_file"] = std::bind(&Handlers::handle_open_file, this, std::placeholders::_1,std::placeholders::_2);
-//    this->m_callbacks["tiny_png"] = std::bind(&Handlers::handle_tinypng, this, std::placeholders::_1,std::placeholders::_2);
-    this->m_callbacks["upload"] = std::bind(&Handlers::handle_upload, this, std::placeholders::_1,std::placeholders::_2);
-    this->m_callbacks["download"] = std::bind(&Handlers::handle_download, this, std::placeholders::_1,std::placeholders::_2);
-    this->m_callbacks["files"] = std::bind(&Handlers::handle_get_files, this, std::placeholders::_1,std::placeholders::_2);
+        this->m_callbacks["open_file"] = std::bind(&Handlers::handle_open_file, this, std::placeholders::_1,std::placeholders::_2);
+        this->m_callbacks["upload"] = std::bind(&Handlers::handle_upload, this, std::placeholders::_1,std::placeholders::_2);
+        this->m_callbacks["download"] = std::bind(&Handlers::handle_download, this, std::placeholders::_1,std::placeholders::_2);
+        this->m_callbacks["files"] = std::bind(&Handlers::handle_get_files, this, std::placeholders::_1,std::placeholders::_2);
         this->m_callbacks["csd"] = std::bind(&Handlers::handle_csd, this, std::placeholders::_1,std::placeholders::_2);
-    this->m_callbacks["ccs"] = std::bind(&Handlers::handleResetCCS, this, std::placeholders::_1, std::placeholders::_2);
+        this->m_callbacks["ccs"] = std::bind(&Handlers::handleResetCCS, this, std::placeholders::_1, std::placeholders::_2);
     }
+    std::vector<Property> getFilesInfo(const std::string& path);
     Handlers(){
         init();
     }

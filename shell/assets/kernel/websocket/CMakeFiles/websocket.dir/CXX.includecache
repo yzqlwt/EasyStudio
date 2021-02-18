@@ -212,6 +212,12 @@ iostream
 boost/regex.hpp
 -
 
+C:/Users/yzqlwt/Documents/EasyStudio/kernel/websocket/WebSocketServer.cpp
+WebSocketServer.h
+C:/Users/yzqlwt/Documents/EasyStudio/kernel/websocket/WebSocketServer.h
+nlohmann/json.hpp
+-
+
 C:/Users/yzqlwt/Documents/EasyStudio/kernel/websocket/WebSocketServer.h
 Handlers.h
 C:/Users/yzqlwt/Documents/EasyStudio/kernel/websocket/Handlers.h
